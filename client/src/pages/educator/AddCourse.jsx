@@ -26,6 +26,7 @@ const AddCourse = () => {
     lectureUrl: '',
     isPreviewFree: false,
   });
+  const [lastThumbnail, setLastThumbnail] = useState('');
 
   const handleChapter = (action, chapterId) => {
     if (action === 'add') {
@@ -125,6 +126,7 @@ const AddCourse = () => {
         setImage(null)
         setChapters([])
         quillRef.current.root.innerHTML = ""
+        setLastThumbnail(data.course?.courseThumbnail || '')
       } else (
         toast.error(data.message)
       )
@@ -263,6 +265,12 @@ const AddCourse = () => {
           ADD
         </button>
       </form>
+      {lastThumbnail && (
+        <div className="mt-4">
+          <p>Uploaded Thumbnail Preview:</p>
+          <img src={lastThumbnail} alt="Course Thumbnail" className="max-h-32" />
+        </div>
+      )}
     </div>
   );
 };
